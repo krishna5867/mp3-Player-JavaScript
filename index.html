@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Player</title>
+</head>
+<link rel="stylesheet" href="./style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+<body>
+    <div class="container">
+        <h1>Radhe</h1>
+        <H2>Hansraj</H2>
+        <div class="imgbox">
+            <img src="images/member-2.png" alt="">
+        </div>
+        <div class="icon">
+            <i class="fa-solid fa-backward prev playy"></i>
+            <i class="fa-solid fa-play play"></i>
+            <i class="fa-solid fa-forward forward playy"></i>
+        </div>
+    <audio src="./music/radha.mp3"></audio>
+    </div>
+    <script>
+        let prev = document.querySelector(".prev");
+        let play = document.querySelector(".play");
+        let forward = document.querySelector(".forward");
+        let song = document.querySelector("audio");
+        let img = document.querySelector("img");
+        let songName = document.querySelector("h1");
+        let songSinger = document.querySelector("h2");
+
+
+        let songs = [
+            {
+                name: "52gaj",
+                singer: "Punjabi",
+                images: "member-4",
+                audio: new Audio("music/52gaj.mp3")
+
+            },
+            {
+                name: "Jokar",
+                singer: "Hollywood",
+                audio: new Audio("music/jokar.mp3"),
+                images: "kk"
+
+
+            },
+            {
+                name: "Kabootar",
+                singer: "Punjabi",
+                audio: "kabootar.mp3",
+                images: "member-6"
+            }
+            ];
+            console.log(songs[2].audio);
+            console.log(songs.audio);
+
+    let isPlaying = false;
+
+    const playing = () =>{
+        isPlaying = true;
+        song.play(songs);
+        play.classList.replace("fa-play", "fa-pause");
+        img.classList.add("rotate");
+    };
+
+    const pause = () =>{
+        isPlaying = false;
+        song.pause();
+        play.classList.replace("fa-pause", "fa-play");
+        img.classList.remove("rotate");
+
+    };
+
+    play.addEventListener("click", () =>{
+            if(isPlaying){
+                pause();
+            }else{
+                playing();
+            }
+            });
+
+    const loadSongs = (songs) =>{
+        songName.textContent = songs.name;
+        songSinger.textContent = songs.singer;
+        song.src = "./music/" + songs.audio + ".mp3";
+        img.src = "./images/" + songs.images + ".png";
+    };
+
+    songsIndex = 0;
+
+    const forwardBtn = () => {
+        songsIndex = (songsIndex + 1) % songs.length;
+        loadSongs(songs[songsIndex]);
+        playing();
+    };
+
+    const prevBtn = () => {
+        songsIndex = (songsIndex - 1) % songs.length;
+        loadSongs(songs[songsIndex]);
+        playing();
+        // console.log(songsIndex);
+    };
+
+    forward.addEventListener("click", forwardBtn);
+    prev.addEventListener("click", prevBtn);
+    
+    </script>
+</body>
+</html>
